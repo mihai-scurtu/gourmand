@@ -1,6 +1,7 @@
 {
 	"ImportPath": "github.com/mihai-scurtu/gourmand",
 	"GoVersion": "go1.7",
+	"GodepVersion": "v77",
 	"Packages": [
 		"./..."
 	],
@@ -24,7 +25,15 @@
 			"Rev": "15b273f44f74f9e11157c7feebdd41bae5d1d91d"
 		},
 		{
+			"ImportPath": "github.com/zabawaba99/firego/sync",
+			"Rev": "15b273f44f74f9e11157c7feebdd41bae5d1d91d"
+		},
+		{
 			"ImportPath": "golang.org/x/net/html",
+			"Rev": "76365a41624aa608f888301bf60fabecaf928b5a"
+		},
+		{
+			"ImportPath": "golang.org/x/net/html/atom",
 			"Rev": "76365a41624aa608f888301bf60fabecaf928b5a"
 		}
 	]
