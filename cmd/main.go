@@ -1,9 +1,20 @@
 package main
 
-import "github.com/mihai-scurtu/gourmand"
+import (
+	"log"
+
+	"github.com/mihai-scurtu/gourmand"
+)
 
 func main() {
 	app := gourmand.NewApp()
 
-	app.Run()
+	log.Println("Running crawler...")
+
+	err := app.Run()
+	if err != nil {
+		log.Println(err)
+	}
+
+	log.Println("Finished.")
 }
