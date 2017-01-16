@@ -80,7 +80,7 @@ func updateMenu(currentMenu *Menu, newMenu *Menu) {
 		}
 
 		if item.LimitedAt.IsZero() {
-			item.ExpiredAt = newItem.ExpiredAt
+			item.LimitedAt = newItem.LimitedAt
 		}
 
 		if item.ImageUrl == NO_PICTURE_YET_URL {
