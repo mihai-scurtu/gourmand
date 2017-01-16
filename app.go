@@ -7,6 +7,8 @@ import (
 
 const URL = "https://www.sectorgurmand.ro"
 
+const NO_PICTURE_YET_URL = "https://www.sectorgurmand.ro/images/produs_poza_in_curand.jpg"
+
 type App struct {
 	crawler Crawler
 	storage Storage
@@ -71,12 +73,18 @@ func updateMenu(currentMenu *Menu, newMenu *Menu) {
 	currentMenu.CrawledAt = newMenu.CrawledAt
 
 	for i, item := range currentMenu.Items {
+		newItem := newMenu.Items[i]
+
 		if item.ExpiredAt.IsZero() {
-			item.ExpiredAt = newMenu.Items[i].ExpiredAt
+			item.ExpiredAt = newItem.ExpiredAt
 		}
 
 		if item.LimitedAt.IsZero() {
-			item.ExpiredAt = newMenu.Items[i].ExpiredAt
+			item.ExpiredAt = newItem.ExpiredAt
+		}
+
+		if item.ImageUrl == NO_PICTURE_YET_URL {
+			item.ImageUrl = newItem.ImageUrl
 		}
 	}
 }
