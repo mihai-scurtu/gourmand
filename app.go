@@ -1,6 +1,7 @@
 package gourmand
 
 import (
+	"errors"
 	"io"
 	"net/http"
 )
@@ -8,6 +9,8 @@ import (
 const URL = "https://www.sectorgurmand.ro"
 
 const NO_PICTURE_YET_URL = "https://www.sectorgurmand.ro/images/produs_poza_in_curand.jpg"
+
+var NoItemsError = errors.New("No items found for menu.")
 
 type App struct {
 	crawler Crawler
@@ -27,6 +30,10 @@ func (app *App) Run() error {
 	newMenu, err := app.fetchMenu()
 	if err != nil {
 		return err
+	}
+
+	if len(newMenu.Items) == 0 {
+		return NoItemsError
 	}
 
 	existingMenu, err := app.storage.FindMenu(newMenu.Date)

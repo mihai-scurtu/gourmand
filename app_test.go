@@ -48,7 +48,7 @@ func TestMenuUpdate(t *testing.T) {
 		LimitedAt: now,
 	}
 
-	oldMenu.Items[0] = &MenuItem{
+	newMenu.Items[0] = &MenuItem{
 		ImageUrl:  NO_PICTURE_YET_URL,
 		ExpiredAt: time.Now(),
 		LimitedAt: time.Now(),
