@@ -1,1 +1,1 @@
-svc: service
+svc: gourmand_service
