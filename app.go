@@ -11,6 +11,7 @@ const URL = "https://www.sectorgurmand.ro"
 const NO_PICTURE_YET_URL = "https://www.sectorgurmand.ro/images/produs_poza_in_curand.jpg"
 
 var NoItemsError = errors.New("No items found for menu.")
+var ItemCountMismatchError = errors.New("Menu item count mistmatch.")
 
 type App struct {
 	crawler Crawler
@@ -76,7 +77,11 @@ func (app *App) fetchMenu() (*Menu, error) {
 	return app.crawler.Menu()
 }
 
-func updateMenu(currentMenu *Menu, newMenu *Menu) {
+func updateMenu(currentMenu *Menu, newMenu *Menu) error {
+	if len(currentMenu.Items) != len(newMenu.Items) {
+		return ItemCountMismatchError
+	}
+
 	currentMenu.CrawledAt = newMenu.CrawledAt
 
 	for i, item := range currentMenu.Items {
@@ -94,4 +99,6 @@ func updateMenu(currentMenu *Menu, newMenu *Menu) {
 			item.ImageUrl = newItem.ImageUrl
 		}
 	}
+
+	return nil
 }

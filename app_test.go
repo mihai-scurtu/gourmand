@@ -61,3 +61,29 @@ func TestMenuUpdate(t *testing.T) {
 	assert.True(t, now.Equal(item.ExpiredAt))
 	assert.True(t, now.Equal(item.LimitedAt))
 }
+
+func TestUpdateMenuHandlesDifferentItemCounts(t *testing.T) {
+	now := time.Now()
+
+	oldMenu := &Menu{
+		Items: []*MenuItem{
+			&MenuItem{
+				ImageUrl: NO_PICTURE_YET_URL,
+			},
+			&MenuItem{
+				ImageUrl: NO_PICTURE_YET_URL,
+			},
+		},
+	}
+
+	newMenu := &Menu{
+		Items: []*MenuItem{&MenuItem{
+			ImageUrl:  "foo",
+			ExpiredAt: now,
+			LimitedAt: now,
+		}},
+	}
+
+	err := updateMenu(oldMenu, newMenu)
+	assert.Equal(t, ItemCountMismatchError, err)
+}
