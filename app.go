@@ -23,7 +23,7 @@ type App struct {
 func NewApp() *App {
 	return &App{
 		crawler: NewCrawler(),
-		storage: &firebaseStorage{},
+		storage: NewFirebaseStorage(),
 	}
 }
 
