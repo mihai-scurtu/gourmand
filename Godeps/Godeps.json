@@ -2,6 +2,9 @@
 	"ImportPath": "github.com/mihai-scurtu/gourmand",
 	"GoVersion": "go1.7",
 	"GodepVersion": "v77",
+	"Packages": [
+		"./cmd/..."
+	],
 	"Deps": [
 		{
 			"ImportPath": "github.com/PuerkitoBio/goquery",
@@ -11,11 +14,6 @@
 		{
 			"ImportPath": "github.com/andybalholm/cascadia",
 			"Rev": "3ad29d1ad1c4f2023e355603324348cf1f4b2d48"
-		},
-		{
-			"ImportPath": "github.com/stretchr/testify/assert",
-			"Comment": "v1.0-12-g7e4a149",
-			"Rev": "7e4a149930b09fe4c2b134c50ce637457ba6e966"
 		},
 		{
 			"ImportPath": "github.com/zabawaba99/firego",
