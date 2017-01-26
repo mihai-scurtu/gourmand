@@ -73,7 +73,7 @@ func (c *goQueryCrawler) parseMenu() error {
 	})
 
 	c.menu = &Menu{
-		Id:        time.Now().Format("2 Jan 2006"),
+		Id:        time.Now().Format(SQL_DATE_FORMAT),
 		Items:     items,
 		CrawledAt: time.Now(),
 	}

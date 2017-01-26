@@ -4,6 +4,8 @@ import (
 	"os"
 	"testing"
 
+	"time"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -25,6 +27,8 @@ func TestCrawlerCrawlsHtml(t *testing.T) {
 	assert.Equal(t, 8, len(menu.Items))
 
 	item := menu.Items[0]
+
+	assert.Equal(t, time.Now().Format(SQL_DATE_FORMAT), menu.Id)
 	assert.Equal(t, "Supa crema de legume si naut", item.Name)
 	assert.Equal(t, "Supa vegetariana cremoasa cu arome usor marocane combina legumele cu condimente calde ca ienibahar, cardamom si nucsoara adaugand valoare proteica prin nautul delicios.",
 		item.Description)
