@@ -13,10 +13,24 @@ type Storage interface {
 
 const FIREBASE_URL = "https://gourmand-6fe46.firebaseio.com/"
 
-type firebaseStorage struct{}
+var URIS = map[string]string{
+	"menu": "menus",
+}
+
+type firebaseStorage struct {
+	url string
+	uri map[string]string
+}
+
+func NewFirebaseStorage() *firebaseStorage {
+	return &firebaseStorage{
+		url: FIREBASE_URL,
+		uri: URIS,
+	}
+}
 
 func (s *firebaseStorage) FindMenu(key string) (menu *Menu, err error) {
-	fb := firego.New(menuUrl(key), nil)
+	fb := firego.New(s.menuUrl(key), nil)
 
 	err = fb.Value(&menu)
 
@@ -40,6 +54,6 @@ func (s *firebaseStorage) SaveMenu(menu *Menu) error {
 	return nil
 }
 
-func menuUrl(key string) string {
-	return FIREBASE_URL + "menus/" + key
+func (s firebaseStorage) menuUrl(key string) string {
+	return s.url + s.uri["menu"] + "/" + key
 }

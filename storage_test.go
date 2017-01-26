@@ -8,8 +8,18 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func newTestFirebaseStorage() *firebaseStorage {
+	s := NewFirebaseStorage()
+
+	s.uri = map[string]string{
+		"menu": "test-menus",
+	}
+
+	return s
+}
+
 func TestStorageFindMenu(t *testing.T) {
-	s := &firebaseStorage{}
+	s := newTestFirebaseStorage()
 
 	var menu *Menu
 
@@ -24,7 +34,7 @@ func TestStorageFindMenu(t *testing.T) {
 }
 
 func TestStorageSaveMenu(t *testing.T) {
-	s := &firebaseStorage{}
+	s := newTestFirebaseStorage()
 	now := time.Now()
 	menu := &Menu{
 		Date:      "foo",
