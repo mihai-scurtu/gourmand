@@ -6,7 +6,7 @@ import (
 	"log"
 
 	"github.com/mihai-scurtu/gourmand"
-	"gopkg.in/zabawaba99/firego.v1"
+	"github.com/zabawaba99/firego"
 )
 
 type oldMenu struct {
