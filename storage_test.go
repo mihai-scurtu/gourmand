@@ -18,7 +18,20 @@ func newTestFirebaseStorage() *firebaseStorage {
 	return s
 }
 
-func TestStorageFindMenu(t *testing.T) {
+func saveTestMenu(s *firebaseStorage) (*Menu, error) {
+	now := time.Now()
+	menu := &Menu{
+		Id:        "foo",
+		Items:     []*MenuItem{},
+		CrawledAt: now,
+	}
+
+	err := s.SaveMenu(menu)
+
+	return menu, err
+}
+
+func TestFirebaseStorage_FindMenu(t *testing.T) {
 	s := newTestFirebaseStorage()
 
 	var menu *Menu
@@ -32,20 +45,45 @@ func TestStorageFindMenu(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Nil(t, menu)
 }
-
-func TestStorageSaveMenu(t *testing.T) {
+func TestFirebaseStorage_SaveMenu(t *testing.T) {
 	s := newTestFirebaseStorage()
-	now := time.Now()
-	menu := &Menu{
-		Date:      "foo",
-		Items:     []*MenuItem{},
-		CrawledAt: now,
-	}
-
-	err := s.SaveMenu(menu)
+	menu, err := saveTestMenu(s)
 	assert.Nil(t, err)
 
 	newMenu, err := s.FindMenu("foo")
 	assert.Nil(t, err)
-	assert.Equal(t, menu.Date, newMenu.Date)
+	assert.Equal(t, menu.Id, newMenu.Id)
+}
+
+func TestFirebaseStorage_FindAllMenus(t *testing.T) {
+	s := newTestFirebaseStorage()
+
+	menus, err := s.FindAllMenus()
+
+	assert.Nil(t, err)
+	assert.True(t, len(menus) >= 1)
+
+	found := false
+	for _, menu := range menus {
+		if menu.Id == "test" {
+			found = true
+			break
+		}
+	}
+	assert.True(t, found)
+}
+
+func TestFirebaseStorage_DeleteMenu(t *testing.T) {
+	s := newTestFirebaseStorage()
+
+	menu, err := saveTestMenu(s)
+	assert.Nil(t, err)
+
+	err = s.DeleteMenu(menu)
+	assert.Nil(t, err)
+
+	menu, err = s.FindMenu(menu.Id)
+	assert.Nil(t, err)
+
+	assert.Nil(t, menu)
 }

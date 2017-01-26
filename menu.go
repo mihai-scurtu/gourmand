@@ -1,11 +1,23 @@
 package gourmand
 
-import "time"
+import (
+	"log"
+	"time"
+)
 
 type Menu struct {
+	Id        string      `json:"id"`
 	Items     []*MenuItem `json:"items"`
-	Date      string      `json:"date"`
 	CrawledAt time.Time   `json:"crawled_at,string"`
+}
+
+func (m Menu) Date() time.Time {
+	date, err := time.Parse(SQL_DATE_FORMAT, m.Id)
+	if err != nil {
+		log.Printf("Could not parse date from menu id '%s': %s", m.Id, err.Error())
+	}
+
+	return date
 }
 
 type MenuItem struct {

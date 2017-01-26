@@ -10,6 +10,8 @@ const URL = "https://www.sectorgurmand.ro"
 
 const NO_PICTURE_YET_URL = "https://www.sectorgurmand.ro/images/produs_poza_in_curand.jpg"
 
+const SQL_DATE_FORMAT = "2006-01-02"
+
 var NoItemsError = errors.New("No items found for menu.")
 var ItemCountMismatchError = errors.New("Menu item count mistmatch.")
 
@@ -37,7 +39,7 @@ func (app *App) Run() error {
 		return NoItemsError
 	}
 
-	existingMenu, err := app.storage.FindMenu(newMenu.Date)
+	existingMenu, err := app.storage.FindMenu(newMenu.Id)
 	if err != nil {
 		return err
 	}

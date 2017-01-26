@@ -4,8 +4,6 @@ import (
 	"os"
 	"testing"
 
-	"time"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -25,7 +23,6 @@ func TestCrawlerCrawlsHtml(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, 8, len(menu.Items))
-	assert.Equal(t, time.Now().Format("2 Jan 2006"), menu.Date)
 
 	item := menu.Items[0]
 	assert.Equal(t, "Supa crema de legume si naut", item.Name)

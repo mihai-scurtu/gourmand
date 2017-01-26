@@ -87,3 +87,15 @@ func TestUpdateMenuHandlesDifferentItemCounts(t *testing.T) {
 	err := updateMenu(oldMenu, newMenu)
 	assert.Equal(t, ItemCountMismatchError, err)
 }
+
+func TestSqlDateFormat(t *testing.T) {
+	date := time.Date(2017, time.April, 28, 0, 0, 0, 0, time.Local)
+	sqlDate := "2017-04-28"
+
+	assert.Equal(t, sqlDate, date.Format(SQL_DATE_FORMAT))
+
+	parsedDate, err := time.ParseInLocation(SQL_DATE_FORMAT, sqlDate, time.Local)
+
+	assert.Nil(t, err)
+	assert.True(t, parsedDate.Equal(date))
+}
