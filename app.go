@@ -4,6 +4,7 @@ import (
 	"errors"
 	"io"
 	"net/http"
+	"time"
 )
 
 const URL = "https://www.sectorgurmand.ro"
@@ -56,7 +57,8 @@ func (app *App) Run() error {
 }
 
 func (app *App) fetchPage() (io.Reader, error) {
-	resp, err := http.Get(URL)
+	date := time.Now().Format(SQL_DATE_FORMAT)
+	resp, err := http.Get(URL + "?date=" + date)
 
 	if err != nil {
 		return nil, err
